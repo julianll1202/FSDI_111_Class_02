@@ -32,6 +32,12 @@ def update_task(id):
 
     return '', 204
 
+@app.patch("/tasks/<int:id>")
+def complete_task(id):
+    task.complete(id)
+
+    return '', 204
+    
 @app.delete("/tasks/<int:id>")
 def delete_task(id):
     task.delete(id)

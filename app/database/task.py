@@ -84,6 +84,17 @@ def update(taskId, new_task):
     conn.commit()
     conn.close()
 
+def complete(task_id):
+    statement = """
+        UPDATE task
+        SET active = 0
+        WHERE id = ?
+    """
+
+    conn = get_db()
+    conn.execute(statement, (task_id,))
+    conn.commit()
+    conn.close()
 def delete(task_id):
     statement = """
         DELETE FROM task
