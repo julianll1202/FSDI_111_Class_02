@@ -1,7 +1,9 @@
 from flask import Flask, request;
 from app.database import task
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.get("/tasks")
 def get_all_tasks():
@@ -14,7 +16,7 @@ def get_all_tasks():
 def get_task(id):
     out = {}
     response = task.read(id)
-    out["task"] = response
+    out["task"] = response[0]
     return out
 
 @app.post("/tasks")
@@ -29,17 +31,14 @@ def create_task():
 def update_task(id):
     task_data = request.json
     task.update(id, task_data)
-
     return '', 204
 
 @app.patch("/tasks/<int:id>")
 def complete_task(id):
     task.complete(id)
-
     return '', 204
-    
+
 @app.delete("/tasks/<int:id>")
 def delete_task(id):
     task.delete(id)
-
     return '', 204

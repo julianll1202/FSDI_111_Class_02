@@ -34,6 +34,7 @@ def read(task_id):
     cursor.close()
 
     return output_formatter(result)
+
 def insert(raw_data):
     # create a task tuple with the information from raw_data
     task_data = (
